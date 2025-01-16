@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ScarfaceController : MonoBehaviour
 {
-    // test
+    [SerializeField] private GraphVisualizer graph;
+    [SerializeField] private Transform target;
 
-    public Transform target;
     private ScarfaceAnimator scarfaceAnimator;
     private ScarfaceMovement scarfaceMovement;
     private bool isRoaring;
@@ -24,7 +24,6 @@ public class ScarfaceController : MonoBehaviour
             return;
 
         scarfaceMovement.HandleMovement(target);
-
         scarfaceAnimator.UpdateVelocity(scarfaceMovement.Velocity());
     }
 
@@ -32,10 +31,7 @@ public class ScarfaceController : MonoBehaviour
     {
         if (other.CompareTag("Target"))
         {
-            var x = Random.Range(0, 25);
-            var z = Random.Range(0, 25);
-
-            target.position = new Vector3(x, target.position.y, z);
+            target.position = graph.GetNodePosition();
 
             if (Random.Range(0f, 1f) < 0.5f)
             {
